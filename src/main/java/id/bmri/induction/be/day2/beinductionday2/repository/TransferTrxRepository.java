@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransferTrxRepository extends JpaRepository<TransferTrx, String> {
 
-    <S extends TransferTrx> S save(S entity);
+//    <S extends TransferTrx> S save(S entity);
 
 }

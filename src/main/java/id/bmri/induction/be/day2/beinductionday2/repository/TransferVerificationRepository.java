@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface TransferVerificationRepository extends JpaRepository<TransferVerification, String> {
     TransferVerification findByTransactionId(String Id);
 
-    <S extends TransferVerification> S save(S entity);
+//    <S extends TransferVerification> S save(S entity);
 }
