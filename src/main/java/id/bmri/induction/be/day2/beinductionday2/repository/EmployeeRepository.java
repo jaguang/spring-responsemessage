@@ -1,6 +1,7 @@
 package id.bmri.induction.be.day2.beinductionday2.repository;
 
 import id.bmri.induction.be.day2.beinductionday2.entity.Employees;
+import id.bmri.induction.be.day2.beinductionday2.response.DateJobResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,10 @@ public interface EmployeeRepository extends JpaRepository<Employees, Integer> {
     @Query(nativeQuery = true, value = "select * from employees e where e.job_id =:jobId and e.salary >:minSalary")
     List<Employees> findEmployeesByJobIdAndMinSalary(String jobId, Integer minSalary);
 
-    @Query(nativeQuery = true, value = "select e.first_name, e.last_name, e.email, h.start_date from employees e join job_history h on e.employee_id = h.employee_id")
-    List<Employees> findJoinStartDateJobHistory();
+    @Query(nativeQuery = true, value = "SELECT e.first_name, e.last_name, e.email, h.start_date FROM employees e JOIN job_history h ON e.employee_id = h.employee_id")
+    List<Object> findJoinStartDateJobHistory();
+
+    @Query(nativeQuery = true, value = "SELECT j.job_title,COUNT(e.employee_id) FROM employees e RIGHT JOIN jobs j ON e.job_id = j.job_id GROUP BY j.job_title")
+    List<Object> countEmployeesByJobTitle();
+
 }

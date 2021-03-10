@@ -28,4 +28,7 @@ public class JobHistory {
 
     @Column(name = "department_id")
     private Integer departmentId;
+
+    @Column(name = "modified_date")
+    private Timestamp modifiedDate;
 }
