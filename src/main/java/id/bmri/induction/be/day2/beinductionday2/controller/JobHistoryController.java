@@ -18,7 +18,7 @@ public class JobHistoryController {
     JobHistoryService jobHistoryService;
 
     @PostMapping("/merge")
-    public List<JobHistory> mergeModifiedDate() {
-        return jobHistoryService.mergeModifiedDate();
+    public void mergeModifiedDate() {
+        jobHistoryService.mergeModifiedDate();
     }
 }

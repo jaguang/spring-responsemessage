@@ -41,12 +41,12 @@ public class EmployeeController {
         return employeeService.countEmployeesByJobTitle();
     }
 
-    @GetMapping("update")
+    @PostMapping("update")
     public Employees add(@RequestParam Employees employees) {
         return employeeService.save(employees);
     }
 
-    @GetMapping("delete")
+    @DeleteMapping("delete")
     public Employees delete(@RequestParam Integer id) {
         return employeeService.delete(id);
     }

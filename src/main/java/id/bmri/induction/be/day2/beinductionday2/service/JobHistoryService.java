@@ -6,17 +6,20 @@ import id.bmri.induction.be.day2.beinductionday2.entity.JobHistory;
 import id.bmri.induction.be.day2.beinductionday2.repository.JobHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 @Service
 public class JobHistoryService {
 
     @Autowired
     JobHistoryRepository jobHistoryRepository;
 
-    public List<JobHistory> mergeModifiedDate() {
-        return jobHistoryRepository.mergeModifiedDate();
+
+    public void mergeModifiedDate() {
+        Integer in = jobHistoryRepository.mergeModifiedDate();
+        System.out.println(in);
     }
     public JobHistory findById(Integer id) {
         return jobHistoryRepository.findById(id).orElse(null);
