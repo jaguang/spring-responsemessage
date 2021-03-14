@@ -20,7 +20,7 @@ public interface JobHistoryRepository extends JpaRepository<JobHistory, Integer>
             "    UPDATE SET modified_date = current_timestamp " +
             "    WHEN NOT MATCHED THEN " +
             "    INSERT (employee_id, start_date, end_date, job_id, department_id, modified_date)" +
-            "    VALUES (e.employee_id, TO_DATE('01-01-2010', 'DD-MM-YYYY'), sysdate, e.job_id, e.department_id, current_timestamp)")
+            "    VALUES (e.employee_id, TO_DATE('01-01-2010', 'DD-MM-YYYY'), sysdate, e.job_id, e.department_id, current_timestamp(9))")
     Integer mergeModifiedDate();
 
 

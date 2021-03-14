@@ -1,13 +1,16 @@
 package id.bmri.induction.be.day2.beinductionday2.controller;
 
 import id.bmri.induction.be.day2.beinductionday2.entity.Employees;
+import id.bmri.induction.be.day2.beinductionday2.entity.EmployeesDTO;
 import id.bmri.induction.be.day2.beinductionday2.response.DateJobResponse;
 import id.bmri.induction.be.day2.beinductionday2.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
@@ -16,9 +19,36 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping
-    public List<Employees> findAll() {
-        return employeeService.findAll();
+    @GetMapping("/filter")
+    public List<Employees> findAllFilter(@RequestParam Integer salary) {
+        return employeeService.findAll().stream().filter(e -> e.getSalary() > salary).collect(Collectors.toList());
+    }
+
+    @GetMapping("/sorted")
+    public List<Employees> findAllSort() {
+        return employeeService.findAll().stream().sorted(Comparator.comparing(e -> e.getLastName())).collect(Collectors.toList());
+    }
+
+    @GetMapping("/filter-sorted")
+    public List<Employees> findAllFilterSorted(@RequestParam Integer salary) {
+        return employeeService.findAll().stream().filter(e -> e.getSalary() > salary).sorted().collect(Collectors.toList());
+    }
+
+    @GetMapping("/fullname")
+    public List<EmployeesDTO> findAllStream() {
+        return employeeService.findAll().stream().map(e -> EmployeesDTO.builder()
+        .fullName(e.getFirstName()+ " " + e.getLastName())
+                .build()).collect(Collectors.toList());
+    }
+
+    @GetMapping("/findFirst")
+    public Employees findFirst(@RequestParam Integer salary) {
+        return employeeService.findAll().stream().filter(e -> e.getSalary() > salary).findFirst().get();
+    }
+
+    @GetMapping("/anymatch")
+    public Boolean anymatch() {
+        return employeeService.findAll().stream().anyMatch(e -> e.getSalary() == null);
     }
 
     @GetMapping("/name")

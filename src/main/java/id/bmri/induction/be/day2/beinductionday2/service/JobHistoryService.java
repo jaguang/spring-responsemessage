@@ -18,8 +18,7 @@ public class JobHistoryService {
 
 
     public void mergeModifiedDate() {
-        Integer in = jobHistoryRepository.mergeModifiedDate();
-        System.out.println(in);
+        jobHistoryRepository.mergeModifiedDate();
     }
     public JobHistory findById(Integer id) {
         return jobHistoryRepository.findById(id).orElse(null);
